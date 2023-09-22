@@ -17,7 +17,7 @@ public class DayOfWeekResolver {
                 boolean isWeekend = isWeekend(day);
                 System.out.println(capitalizeDay(day.toString()) +" - It's a day off ? Of course it's " + Boolean.toString(isWeekend).toUpperCase() + " !");
             } else {
-                System.out.println("Invalid day of week. Some examples -> SaTURday,Sa,sat,СБ or 6.");
+                System.out.printf("%nInvalid day of week. Some examples -> SaTURday,Sa,sat,СБ or 6.%n");
             }
         }
         scanner.close();
