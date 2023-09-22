@@ -13,7 +13,10 @@ public enum DayOfWeek {
     DayOfWeek(boolean isWeekend) {
         this.isWeekend = isWeekend;
     }
+
     public boolean isWeekend() {
         return isWeekend;
     }
+
+
 }
