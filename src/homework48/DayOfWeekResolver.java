@@ -15,25 +15,27 @@ public class DayOfWeekResolver {
             DayOfWeek day = convertToDayOfWeek(inputDay);
             if (day != null) {
                 boolean isWeekend = isWeekend(day);
-                System.out.println("It's a day off? Of course it's " + isWeekend + "!");
+                System.out.println(capitalizeDay(day.toString()) +" - It's a day off ? Of course it's " + Boolean.toString(isWeekend).toUpperCase() + " !");
             } else {
-                System.out.println("Invalid day of week. Correct example -> 5, Fr, Fri, or ПТ or Friday");
+                System.out.println("Invalid day of week. Some examples -> SaTURday,Sa,sat,СБ or 6.");
             }
         }
         scanner.close();
     }
 
     private String readInput() {
-        System.out.print("Enter the day of the week (x or Exit):");
+        System.out.printf("%nENUM-GAME:Input the day of the week.%nSome input examples -> fridAy,Fr,fri,ПТ or 5 (x or exit -> to QUIT):");
         return scanner.nextLine().trim().toUpperCase();
     }
 
     private DayOfWeek convertToDayOfWeek(String input) {
         DayOfWeek day;
         try {
+            //System.out.print(DayOfWeek.valueOf(input));
+            //+" ( w/o dayAbbrConversion() )"
             return DayOfWeek.valueOf(input);
         } catch (IllegalArgumentException e) {
-            day = resolveDayAbbr(input);
+            day = dayAbbrConversion(input);
         }
         return day;
     }
@@ -42,25 +44,25 @@ public class DayOfWeekResolver {
             return day.isWeekend();
         }
 
-    private DayOfWeek resolveDayAbbr (String input) throws IllegalArgumentException {
-        switch (input.toLowerCase()) {
-            case "1", "mo", "mon", "пн":
-                return DayOfWeek.MONDAY;
-            case "2", "tu", "tue", "вт":
-                return DayOfWeek.TUESDAY;
-            case "3", "we", "wed", "ср":
-                return DayOfWeek.WEDNESDAY;
-            case "4", "th", "thu", "чт":
-                return DayOfWeek.THURSDAY;
-            case "5", "fr", "fri", "пт":
-                return DayOfWeek.FRIDAY;
-            case "6", "sa", "sat", "сб":
-                return DayOfWeek.SATURDAY;
-            case "7", "su", "sun", "вс":
-                return DayOfWeek.SUNDAY;
-            default:
-                return null;//throw new IllegalArgumentException("Invalid day of the week (from resolveDayAbbr): " + input);
+    private DayOfWeek dayAbbrConversion(String input) throws IllegalArgumentException {
+        return switch (input.toLowerCase()) {
+            case "1", "mo", "mon", "пн" -> DayOfWeek.MONDAY;
+            case "2", "tu", "tue", "вт" -> DayOfWeek.TUESDAY;
+            case "3", "we", "wed", "ср" -> DayOfWeek.WEDNESDAY;
+            case "4", "th", "thu", "чт" -> DayOfWeek.THURSDAY;
+            case "5", "fr", "fri", "пт" -> DayOfWeek.FRIDAY;
+            case "6", "sa", "sat", "сб" -> DayOfWeek.SATURDAY;
+            case "7", "su", "sun", "вс" -> DayOfWeek.SUNDAY;
+            default ->
+                    null;//throw new IllegalArgumentException("Invalid day of the week (from resolveDayAbbr): " + input);
+        };
+    }
+    public static String capitalizeDay( String str ) {
+        if (str == null || str.isEmpty()) {
+            return str;
         }
+        // first letter capitalize conversion
+        return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
     }
 }
 
